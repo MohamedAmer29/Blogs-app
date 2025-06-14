@@ -5,8 +5,9 @@ const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const _ = require("lodash");
 const mongoose = require("mongoose");
-
+const dotEnv = require("dotenv");
 const app = express();
+dotEnv.config();
 
 app.set("view engine", "ejs");
 
@@ -14,9 +15,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 mongoose
-  .connect(
-    "mongodb+srv://amer_29:JJoUiHr1Merxzdo9@cluster0.vhy9w.mongodb.net/blogsDB"
-  )
+  .connect(process.env.DATABASE)
   .then(console.log(`Connected Successfully to the database`))
   .catch((err) => console.log(err));
 
